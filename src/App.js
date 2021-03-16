@@ -4,6 +4,7 @@ import MainRoute from './HomePage';
 import DisplayIndividualNoteDetails from './DisplayIndividualNoteDetails';
 import DisplaySelectedFolderNotes from './DisplaySelectedFolderNotes';
 import NotefulContext from './NoteContext';
+// import dummyData from './dummyData';
 import AddNoteForm from './AddNoteForm';
 import AddFolderForm from './AddFolderForm';
 import NotefulErrors from './NotefulErrors';
@@ -13,12 +14,13 @@ class App extends React.Component {
   static contextType = NotefulContext;
   state = {
     folders: [
-      
+     //attributes: ''
     ],
     notes: [
-      
+      //attributes: ''
     ]
   }
+  
   handleDeleteNote = (id) => {
     const { notes } = this.state
     let index = -1;
@@ -50,6 +52,7 @@ class App extends React.Component {
       return res.json()
     }).catch(error => this.setState({ error }
     )).then(newFolder => 
+    console.log(newFolder) ||
       this.setState({
       folders : [...this.state.folders, newFolder]
     }))
@@ -91,7 +94,7 @@ class App extends React.Component {
       }
       return res.json()
     })
-    .then(data => this.setState({folders : data}))
+    .then(data => this.setState({folders: [...this.state.folders, data]}))
     fetch(`${API_URL}/notes`, {
       method: 'GET',
       headers: {
